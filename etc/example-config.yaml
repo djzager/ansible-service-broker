@@ -37,3 +37,6 @@ broker:
   output_request: true
   ssl_cert_key: /path/to/key
   ssl_cert: /path/to/cert
+  auth:
+    type: basic
+    enable: true
