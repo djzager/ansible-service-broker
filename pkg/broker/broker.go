@@ -55,7 +55,7 @@ type Config struct {
 	Auth               AuthConfig `yaml:"auth"`
 }
 
-// AuthConfig - Configuratoin for authentication
+// AuthConfig - Configuration for authentication
 type AuthConfig struct {
 	Type    bool `yaml:"type"`
 	Enabled bool `yaml:"enabled"`
