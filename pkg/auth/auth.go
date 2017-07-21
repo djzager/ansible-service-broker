@@ -106,25 +106,33 @@ func Handler(h http.Handler, providers []Provider) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// TODO: loop through the providers
 
+		fmt.Println("entered handler")
+		fmt.Println(len(providers))
 		// TODO: determine what to do with the Principal. We don't really have a
 		// context or a session to store it on. Do we need it past this?
-		var searchError error
+		var principalFound error
 		for _, provider := range providers {
+			fmt.Println("Looping through providers")
 			principal, err := provider.GetPrincipal(r)
 			if principal != nil {
+				fmt.Println("Found a user")
 				// we found our principal, stop looking
 				break
 			}
 			if err != nil {
-				searchError = err
+				fmt.Println("We have an error")
+				principalFound = err
 			}
 		}
 		// if we went through the providers and found no principals. We will
 		// have found an error
-		if searchError != nil {
-			http.Error(w, searchError.Error(), http.StatusUnauthorized)
+		if principalFound != nil {
+			fmt.Println("found nothing")
+			http.Error(w, principalFound.Error(), http.StatusUnauthorized)
 			return
 		}
+
+		fmt.Println("going to call ServeHTTP")
 		h.ServeHTTP(w, r)
 	})
 }
