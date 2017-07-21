@@ -7,8 +7,8 @@ import (
 	"strings"
 )
 
-// AuthEntry - Configuration for authentication
-type AuthEntry struct {
+// ConfigEntry - Configuration for authentication
+type ConfigEntry struct {
 	Type    string `yaml:"type"`
 	Enabled bool   `yaml:"enabled"`
 }
@@ -138,7 +138,7 @@ func Handler(h http.Handler, providers []Provider) http.Handler {
 }
 
 // GetProviders - returns the list of configured providers
-func GetProviders(entries []AuthEntry) []Provider {
+func GetProviders(entries []ConfigEntry) []Provider {
 	providers := make([]Provider, 0, len(entries))
 
 	for _, cfg := range entries {
