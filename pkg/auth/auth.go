@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// AuthConfig - Configuration for authentication
+// AuthEntry - Configuration for authentication
 type AuthEntry struct {
 	Type    string `yaml:"type"`
 	Enabled bool   `yaml:"enabled"`
@@ -152,8 +152,9 @@ func createProvider(providerType string) Provider {
 	}
 }
 
-// TODO: really need to figure out a better way to define what should be
-// returned.
+// GetUserServiceAdapter returns the configured UserServiceAdapter
 func GetUserServiceAdapter() UserServiceAdapter {
+	// TODO: really need to figure out a better way to define what should be
+	// returned.
 	return NewFileUserServiceAdapter("/tmp/foo")
 }
