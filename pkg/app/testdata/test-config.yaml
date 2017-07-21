@@ -12,7 +12,7 @@ registry:
     url: registry.access.stage.redhat.com
     fail_on_error: true
     white_list:
-      - "^legitimate.*-apb$"    
+      - "^legitimate.*-apb$"
     black_list:
       - "malicious.*-apb$"
       - "^specific-blacklist-apb$"
