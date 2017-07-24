@@ -141,7 +141,7 @@ objects:
               secretName: asb-tls
           - name: asb-auth-volume
             secret:
-              secretName: asb-auth
+              secretName: asb-auth-secret
 
 - apiVersion: v1
   kind: Secret
