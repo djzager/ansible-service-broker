@@ -2,6 +2,7 @@ package auth
 
 import (
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"path"
@@ -66,9 +67,9 @@ type FileUserServiceAdapter struct {
 // NewFileUserServiceAdapter - constructor for the FUSA
 func NewFileUserServiceAdapter(dir string, log *logging.Logger) (*FileUserServiceAdapter, error) {
 	if dir == "" {
-		dir = "/var/run/asb-auth"
-		log.Warning("directory is empty, defaulting to %s", dir)
+		return nil, fmt.Errorf("directory is empty, defaulting to %s", dir)
 	}
+
 	fusa := FileUserServiceAdapter{filedir: dir, log: log}
 	err := fusa.buildDB()
 	if err != nil {
