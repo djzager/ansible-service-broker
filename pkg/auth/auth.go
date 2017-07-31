@@ -187,7 +187,7 @@ func createProvider(providerType string, log *logging.Logger) (Provider, error) 
 		if err != nil {
 			return nil, err
 		}
-		return NewBasicAuth(usa), nil
+		return NewBasicAuth(usa, log), nil
 	// add case "oauth":
 	default:
 		panic("Unknown auth provider")

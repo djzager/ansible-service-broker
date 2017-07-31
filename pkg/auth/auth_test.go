@@ -63,7 +63,7 @@ func TestHandlerAuthorized(t *testing.T) {
 	})
 
 	ba := NewBasicAuth(
-		MockUserServiceAdapter{userdb: map[string]string{"admin": "password"}})
+		MockUserServiceAdapter{userdb: map[string]string{"admin": "password"}}, log)
 
 	authhandler := Handler(testhandler, []Provider{ba}, log)
 
@@ -88,7 +88,7 @@ func TestHandlerRejected(t *testing.T) {
 	})
 
 	ba := NewBasicAuth(
-		MockUserServiceAdapter{userdb: map[string]string{"admin": "password"}})
+		MockUserServiceAdapter{userdb: map[string]string{"admin": "password"}}, log)
 
 	authhandler := Handler(testhandler, []Provider{ba}, log)
 
