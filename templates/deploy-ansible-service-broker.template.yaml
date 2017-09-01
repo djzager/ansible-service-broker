@@ -199,15 +199,16 @@ objects:
             enabled: ${ENABLE_BASIC_AUTH}
 
 - apiVersion: servicecatalog.k8s.io/v1alpha1
-  kind: Broker
+  kind: ServiceBroker
   metadata:
     name: ansible-service-broker
   spec:
     url: ${ASB_SCHEME}://asb-1338-ansible-service-broker.${ROUTING_SUFFIX}
     authInfo:
-      basicAuthSecret:
-        namespace: ansible-service-broker
-        name: asb-auth-secret
+      basic:
+        secretRef:
+          namespace: ansible-service-broker
+          name: asb-auth-secret
 
 parameters:
 - description: Scheme for ansible service broker (http/https)

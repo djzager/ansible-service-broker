@@ -112,15 +112,16 @@ Here is an example of creating a broker resource in the service catalog. The
 
 ```yaml
 apiVersion: servicecatalog.k8s.io/v1alpha1
-kind: Broker
+kind: ServiceBroker
 metadata:
   name: ansible-service-broker
 spec:
   url: https://asb-1338-ansible-service-broker.172.17.0.1.nip.io
   authInfo:
-    basicAuthSecret:
-      namespace: ansible-service-broker
-      name: asb-auth-secret
+    basic:
+      secretRef:
+        namespace: ansible-service-broker
+        name: asb-auth-secret
 ```
 
 *NOTE*: this section is highly dependent on what the service catalog expects. If
