@@ -61,6 +61,8 @@ func monitorOutput(namespace string, podname string, log *logging.Logger) ([]byt
 		credsNotAvailable := errors.New("exit status 2")
 
 		output, err := runtime.RunCommand("kubectl", "exec", podname, gatherCredentialsCMD, "--namespace="+namespace)
+		log.Debugf("Output: %v\n", output)
+		log.Debugf("Err: %v\n", err)
 		podCompleted := strings.Contains(string(output), "current phase is Succeeded") ||
 			strings.Contains(string(output), "cannot exec into a container in a completed pod")
 

@@ -61,11 +61,12 @@ func provisionOrUpdate(
 	}
 
 	metrics.ActionStarted(string(method))
+	sm := NewServiceAccountManager(log)
 	executionContext, err := ExecuteApb(
 		string(method), clusterConfig, instance.Spec,
 		instance.Context, instance.Parameters, log,
 	)
-
+	defer sm.DestroyApbSandbox(executionContext, clusterConfig)
 	if err != nil {
 		log.Errorf("Problem executing apb [%s]", executionContext.PodName)
 		log.Error(err.Error())
@@ -81,8 +82,6 @@ func provisionOrUpdate(
 		creds = nil
 	}
 
-	sm := NewServiceAccountManager(log)
-	sm.DestroyApbSandbox(executionContext, clusterConfig)
 	if err != nil {
 		log.Errorf("apb::%s error occurred", string(method))
 		log.Error("%s", err.Error())
