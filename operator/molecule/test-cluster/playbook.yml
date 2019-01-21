@@ -1,0 +1,22 @@
+---
+
+- name: Converge
+  hosts: localhost
+  connection: local
+  vars:
+    ansible_python_interpreter: '{{ ansible_playbook_python }}'
+    deploy_dir: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/deploy"
+    image_name: osb.openshift.io/ansible-service-broker-operator:testing
+  tasks:
+  - name: Create the osb.openshift.io/v1alpha1.AnsibleServiceBroker
+    k8s:
+      namespace: '{{ namespace }}'
+      definition: "{{ lookup('file', '/'.join([deploy_dir, 'crds/osb_v1alpha1_ansibleservicebroker_cr.yaml'])) }}"
+
+  - name: Get the newly created Custom Resource
+    debug:
+      msg: "{{ lookup('k8s', group='osb.openshift.io', api_version='v1alpha1', kind='AnsibleServiceBroker', namespace=namespace, resource_name=cr.metadata.name) }}"
+    vars:
+      cr: "{{ lookup('file', '/'.join([deploy_dir, 'crds/osb_v1alpha1_ansibleservicebroker_cr.yaml'])) | from_yaml }}"
+
+- import_playbook: "{{ playbook_dir }}/../default/asserts.yml"
