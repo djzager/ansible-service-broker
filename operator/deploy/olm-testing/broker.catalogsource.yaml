@@ -1,0 +1,9 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: ansible-service-broker
+  namespace: openshift-operator-lifecycle-manager
+spec:
+  sourceType: grpc
+  image: docker.io/automationbroker/asb-operator-registry
+
